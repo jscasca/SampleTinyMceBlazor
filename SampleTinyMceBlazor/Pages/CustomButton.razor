@@ -1,0 +1,26 @@
+﻿@page "/custom"
+@using TinyMCE.Blazor
+
+<h3>Editor with Custom Button</h3>
+
+<Editor id="Sample1" JsConfSrc="my.tinyConf" Conf="@basicConf"></Editor>
+
+@code {
+
+  private Dictionary<string, object> basicConf = new Dictionary<string, object>();
+
+  protected override Task OnInitializedAsync()
+  {
+    basicConf.Add("height", 300);
+    basicConf.Add("menubar", false);
+    basicConf.Add("toolbar", "undo redo | bold italic | customBn");
+    return base.OnInitializedAsync();
+  }
+
+  [JSInvokable("CustomFn")]
+  public static void DebugString(string val)
+  {
+    Console.WriteLine($"debugging val [{val}]");
+  }
+}
+
